@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import "./App.css";
+import SceneContent from "./components/SceneContent"; // le nouveau composant
+import * as THREE from "three";
+import { EffectComposer, DepthOfField } from '@react-three/postprocessing'
 
-function App() {
+export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Canvas camera={{ position: [500, 60, 30], fov: 70, far: 5000 }} >
+        <ambientLight />
+        <directionalLight position={[0, 10, 5]} intensity={1} />
+        <SceneContent /> {/* ✔ tous les hooks sont maintenant dans ce composant */}
+        <OrbitControls
+          minAzimuthAngle={-Math.PI / 1}
+          maxAzimuthAngle={Math.PI / 1}
+          minPolarAngle={Math.PI / 2.5}
+          maxPolarAngle={Math.PI - Math.PI / 2.5}
+        />
+        <EffectComposer>
+    <DepthOfField
+      focusDistance={0.1}
+      focalLength={0.10}
+      bokehScale={2}
+    />
+   </EffectComposer>
+
+      </Canvas>
     </div>
   );
 }
-
-export default App;
