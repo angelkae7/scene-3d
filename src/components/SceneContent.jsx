@@ -1,4 +1,5 @@
 import { useGLTF, useAnimations } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 import { useRef, useEffect } from "react";
 import * as THREE from "three";
 
@@ -22,28 +23,52 @@ export default function SceneContent() {
   const { scene: WaterliliesScene } = useGLTF("/models/Water-lilies.glb");
   const { scene: StalactitesScene } = useGLTF("/models/Stalactites.glb");
   const { scene: ChestScene } = useGLTF("/models/Chest.glb");
-  const { scene: CrystalScene } = useGLTF("/models/Crystal.glb");
-  const { scene: animatedbutterflyScene, } = useGLTF("/models/animated_butterfly.glb");
+
+const { scene: animatedbutterflyScene, animations: animationsButterfly } = useGLTF("/models/animated_butterfly.glb");
+
 
 
 
 
   const { actions } = useAnimations(animations, FrogRef);
 
+  const { actions: actionsB } = useAnimations(animationsButterfly, ButterflyRef);
+
+  useFrame((state) => {
+  if (ButterflyRef.current) {
+    const t = state.clock.getElapsedTime(); // temps écoulé
+    const radius = 50;
+    const height = 150 + Math.sin(t * 2) * 10; // variation d'altitude
+    const x = Math.cos(t) * radius + 100;
+    const z = Math.sin(t) * radius - 100;
+
+    ButterflyRef.current.position.set(x, height, z);
+    ButterflyRef.current.rotation.y = -t; // pour tourner dans le bon sens
+  }
+});
+
 
   // Animation de la grenouille
   useEffect(() => {
     console.log(actions);
 
+    console.log(actionsB);
+
 
     const anim = actions["FrogArmature|Frog_Idle"];
+    const animB = actionsB["Flying"];
 
-    
     // console.log(actionsButterfly);
     if (anim) {
       anim.setLoop(THREE.LoopRepeat);
       anim.clampWhenFinished = true;
       anim.play();
+    }
+
+    if (animB) {
+      animB.setLoop(THREE.LoopRepeat);
+      animB.clampWhenFinished = true;
+      animB.play();
     }
   }, [actions]);
 
@@ -76,7 +101,7 @@ export default function SceneContent() {
       <primitive object={pondScene} scale={1.5} position={[50, 1, 0]} rotation={[-0.3, 2.4, 0.4]} />
       <primitive object={StalactitesScene} scale={500} position={[-400, 200, 0]} rotation={[0, 1.2, 0]} />
       <primitive object={ChestScene} scale={200} position={[-400, 50, 0]} rotation={[1.5, 1.5, -1.5]} />
-      <primitive object={CrystalScene} scale={20} position={[100, 0, 200]} rotation={[0, 1.5, 0]} />
+
 
       <primitive object={WaterliliesScene} scale={3} position={[50, 15, -25]} rotation={[-0.3, 2.2, 0.35]} />
       <primitive object={dragonflyScene} scale={10} position={[50, 100, -100]} rotation={[0, 0, -0.5]} />
