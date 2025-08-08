@@ -37,7 +37,7 @@ export default function SceneContent() {
 
 
     const anim = actions["FrogArmature|Frog_Idle"];
-    const anim2 = actionsButterfly["Flying"];
+
     
     // console.log(actionsButterfly);
     if (anim) {
