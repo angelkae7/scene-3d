@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import "./App.css";
 import SceneContent from "./components/SceneContent"; // le nouveau composant
-import * as THREE from "three";
+
 import { EffectComposer, DepthOfField } from '@react-three/postprocessing'
 
 export default function App() {

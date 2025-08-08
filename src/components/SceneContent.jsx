@@ -1,5 +1,5 @@
 import { useGLTF, useAnimations } from "@react-three/drei";
-import { useRef, useEffect, act, use } from "react";
+import { useRef, useEffect } from "react";
 import * as THREE from "three";
 
 
@@ -23,18 +23,18 @@ export default function SceneContent() {
   const { scene: StalactitesScene } = useGLTF("/models/Stalactites.glb");
   const { scene: ChestScene } = useGLTF("/models/Chest.glb");
   const { scene: CrystalScene } = useGLTF("/models/Crystal.glb");
-  const { scene: animatedbutterflyScene, animationsB } = useGLTF("/models/animated_butterfly.glb");
+  const { scene: animatedbutterflyScene, } = useGLTF("/models/animated_butterfly.glb");
 
 
 
 
   const { actions } = useAnimations(animations, FrogRef);
-  const { actionsButterfly } = useAnimations(animationsB, ButterflyRef);
+
 
   // Animation de la grenouille
   useEffect(() => {
     console.log(actions);
-    console.log(actionsButterfly);
+
 
     const anim = actions["FrogArmature|Frog_Idle"];
     const anim2 = actionsButterfly["Flying"];
