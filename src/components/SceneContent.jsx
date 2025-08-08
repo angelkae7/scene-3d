@@ -71,7 +71,7 @@ const { scene: animatedbutterflyScene, animations: animationsButterfly } = useGL
       animB.clampWhenFinished = true;
       animB.play();
     }
-  }, [actions]);
+  }, [actions, actionsB]);
 
   const handleClick = () => {
     const idle = actions["FrogArmature|Frog_Idle"];
