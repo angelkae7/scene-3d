@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import * as THREE from "three";
 
 
+
 export default function SceneContent() {
   const group = useRef();
   const FrogRef = useRef();
@@ -93,6 +94,7 @@ const { scene: animatedbutterflyScene, animations: animationsButterfly } = useGL
 
   return (
     <group ref={group}>
+
       <primitive object={rockScene1} scale={2000} position={[-100, 0, 200]} rotation={[0, 2.4, 0]} />
       <primitive object={rockScene2} scale={2500} position={[-250, 0, -280]} rotation={[0, -2.6, 0]} />
       <primitive object={TwineScene} scale={80} position={[-100, 250, 134]} rotation={[0, -0.4, -0.5]} />
@@ -109,8 +111,11 @@ const { scene: animatedbutterflyScene, animations: animationsButterfly } = useGL
       <primitive object={snailScene} scale={10} position={[195, 5, 35]} rotation={[0, -1.6, -0.5]} />
       <primitive ref={FrogRef} object={FrogScene} scale={8} position={[60, 14, -42]} rotation={[-1, 1.8, 1]} onClick={handleClick} />
       <primitive ref={ButterflyRef} object={animatedbutterflyScene} scale={10} position={[100, 150, -100]} rotation={[0, 0, 0]} />
-
       {/* Ajout des modèles supplémentaires */}
+                  <mesh scale={150} position={[-400, 150, 0]}>
+                  <boxGeometry />
+                  <meshStandardMaterial emissive="yellow" emissiveIntensity={2} />
+                  </mesh>
     </group>
   );
 }
