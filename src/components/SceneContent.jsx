@@ -45,12 +45,6 @@ export default function SceneContent() {
       anim.clampWhenFinished = true;
       anim.play();
     }
-
-    if (anim2) {
-      anim2.setLoop(THREE.LoopRepeat);
-      anim2.clampWhenFinished = true;
-      anim2.play();
-    }
   }, [actions]);
 
   const handleClick = () => {
